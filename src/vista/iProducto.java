@@ -38,68 +38,72 @@ public class iProducto extends javax.swing.JInternalFrame {
         lb_titulo.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         lb_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lb_titulo.setText("NUEVO PRODUCTO");
-        getContentPane().add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        getContentPane().add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, -1));
 
         lb_nombre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lb_nombre.setForeground(new java.awt.Color(255, 255, 255));
         lb_nombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_nombre.setText("Nombre:");
-        getContentPane().add(lb_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 110, -1));
+        getContentPane().add(lb_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 110, -1));
 
         lb_precio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lb_precio.setForeground(new java.awt.Color(255, 255, 255));
         lb_precio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_precio.setText("Precio:");
-        getContentPane().add(lb_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 110, -1));
+        getContentPane().add(lb_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 110, -1));
 
         lb_descripcion.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lb_descripcion.setForeground(new java.awt.Color(255, 255, 255));
         lb_descripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_descripcion.setText("Descripción:");
-        getContentPane().add(lb_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 110, -1));
+        getContentPane().add(lb_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 110, -1));
 
         lb_categoria.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lb_categoria.setForeground(new java.awt.Color(255, 255, 255));
         lb_categoria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_categoria.setText("Categoria:");
-        getContentPane().add(lb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 110, -1));
+        getContentPane().add(lb_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 110, -1));
 
         text_nombre.setBackground(new java.awt.Color(204, 204, 204));
         text_nombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        text_nombre.setForeground(new java.awt.Color(0, 0, 0));
+        text_nombre.setCaretColor(new java.awt.Color(0, 0, 0));
         text_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_nombreActionPerformed(evt);
             }
         });
-        getContentPane().add(text_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 350, -1));
+        getContentPane().add(text_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 350, -1));
 
         text_precio.setBackground(new java.awt.Color(204, 204, 204));
         text_precio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        text_precio.setForeground(new java.awt.Color(0, 0, 0));
         text_precio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_precioActionPerformed(evt);
             }
         });
-        getContentPane().add(text_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 350, -1));
+        getContentPane().add(text_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 350, -1));
 
         text_descripcion.setBackground(new java.awt.Color(204, 204, 204));
         text_descripcion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        text_descripcion.setForeground(new java.awt.Color(0, 0, 0));
         text_descripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_descripcionActionPerformed(evt);
             }
         });
-        getContentPane().add(text_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 350, -1));
+        getContentPane().add(text_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 350, -1));
 
         cbox_categoria.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbox_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione categoria", "Ciber", "Ciber - PROMOS", "Cocina", "Cocina - PROMOS", "Cafetería", "Cafeteria - PROMOS", "Jagertender", "Bebidas" }));
         cbox_categoria.setToolTipText("");
-        getContentPane().add(cbox_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 200, -1));
+        getContentPane().add(cbox_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 200, -1));
 
         btn_guardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btn_guardar.setText("Guardar");
         btn_guardar.setToolTipText("");
-        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 90, 40));
+        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 90, 40));
 
         jLabel_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/internalFrame.png"))); // NOI18N
         getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 370));

@@ -53,7 +53,7 @@ public class fLogin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("BigNoodleTitling", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("© Rocio Villanueva, Charo de Don Pedo, Zoe Montenegro");
+        jLabel1.setText("© Rocio Villanueva, Charo de Don Pedro, Zoe Montenegro");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -62,7 +62,7 @@ public class fLogin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(283, 283, 283)
                 .addComponent(jLabel1)
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
