@@ -4,8 +4,12 @@ public class Cliente extends Persona {
 
     private int telefono;
 
-    public Cliente(int id, String nombre, String apellido, int dni, int telefono) {
-        super(id, nombre, apellido, dni);
+    public Cliente() {
+        this.telefono = 0;
+    }
+
+    public Cliente(int id, String nombre, String apellido, int dni, int estado, int telefono) {
+        super(id, nombre, apellido, dni, estado);
         this.telefono = telefono;
     }
 
@@ -18,14 +22,20 @@ public class Cliente extends Persona {
     }
 
     // Método equals
-  @Override
-public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    if (!super.equals(o)) return false;
-    Cliente cliente = (Cliente) o;
-    return telefono == cliente.telefono;
-}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        Cliente cliente = (Cliente) o;
+        return telefono == cliente.telefono;
+    }
 
     // Método toString
     @Override

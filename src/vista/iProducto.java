@@ -29,7 +29,6 @@ public class iProducto extends javax.swing.JInternalFrame {
         text_descripcion = new javax.swing.JTextField();
         cbox_categoria = new javax.swing.JComboBox<>();
         btn_guardar = new javax.swing.JButton();
-        jLabel_wallpaper = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -105,9 +104,6 @@ public class iProducto extends javax.swing.JInternalFrame {
         btn_guardar.setToolTipText("");
         getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 90, 40));
 
-        jLabel_wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/internalFrame.png"))); // NOI18N
-        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 370));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,7 +123,6 @@ public class iProducto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_guardar;
     private javax.swing.JComboBox<String> cbox_categoria;
-    private javax.swing.JLabel jLabel_wallpaper;
     private javax.swing.JLabel lb_categoria;
     private javax.swing.JLabel lb_descripcion;
     private javax.swing.JLabel lb_nombre;
