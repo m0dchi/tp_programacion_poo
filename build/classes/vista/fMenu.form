@@ -140,6 +140,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Administrar categorias"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_categoriasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

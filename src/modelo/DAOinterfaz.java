@@ -1,6 +1,6 @@
 package modelo;
 
-public interface CRUDinterfaz<T> {
+public interface DAOinterfaz<T> {
     void crear(T t);
     T leer(int id);
     void actualizar(T t);

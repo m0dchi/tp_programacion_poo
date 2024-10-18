@@ -122,6 +122,11 @@ public class fMenu extends javax.swing.JFrame {
 
         mi_categorias.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         mi_categorias.setText("Administrar categorias");
+        mi_categorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_categoriasActionPerformed(evt);
+            }
+        });
         jMenu4.add(mi_categorias);
 
         jMenuBar1.add(jMenu4);
@@ -196,6 +201,12 @@ public class fMenu extends javax.swing.JFrame {
         jDesktopPane_menu.add(iCategoria);
         iCategoria.setVisible(true);
     }//GEN-LAST:event_mi_nuevaCategoriaActionPerformed
+
+    private void mi_categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_categoriasActionPerformed
+       iAdmCategoria iAdmCategoria = new iAdmCategoria();
+       jDesktopPane_menu.add(iAdmCategoria);
+       iAdmCategoria.setVisible(true);
+    }//GEN-LAST:event_mi_categoriasActionPerformed
 
     /**
      * @param args the command line arguments
