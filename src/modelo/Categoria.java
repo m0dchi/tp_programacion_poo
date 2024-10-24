@@ -5,20 +5,17 @@ public class Categoria {
     private int id;
     private String nombre;
     private String descripcion;
-    private int estado;
 
     public Categoria() {
         this.id = 0;
         this.nombre = "";
         this.descripcion = "";
-        this.estado = 0;
     }
 
     public Categoria(int id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.estado = estado;
     }
 
     public int getId() {
@@ -43,14 +40,6 @@ public class Categoria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 
     // Método equals

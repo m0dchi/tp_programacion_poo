@@ -6,7 +6,7 @@ public class Usuario extends Persona {
     
     public Usuario(){
         this.usuario = "";
-        this.usuario = "";
+        this.password = "";
     }
     
     public Usuario(int id,String nombre, String apellido, int dni, String usuario, String password, int estado) {

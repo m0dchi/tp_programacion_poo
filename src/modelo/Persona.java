@@ -6,14 +6,12 @@ public class Persona {
     private String nombre;
     private String apellido;
     private int dni;
-    private int estado;
 
     public Persona() {
         this.id = 0;
         this.nombre = "";
         this.apellido = "";
         this.dni = 0;
-        this.estado = 0;
     }
 
     public Persona(int id, String nombre, String apellido, int dni, int estado) {
@@ -21,7 +19,6 @@ public class Persona {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.estado = estado;
     }
 
     public int getId() {
@@ -54,14 +51,6 @@ public class Persona {
 
     public void setDni(int dni) {
         this.dni = dni;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 
     @Override

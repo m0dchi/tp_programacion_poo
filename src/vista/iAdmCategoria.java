@@ -1,29 +1,24 @@
 package vista;
 
-import conexion.Conexion;
-import modelo.Categoria;
 import controlador.C_Categoria;
+import modelo.Categoria;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class iAdmCategoria extends javax.swing.JInternalFrame {
 
     private int idCategoria;
+    private C_Categoria controlCategoria;
 
     public iAdmCategoria() {
         initComponents();
         this.setSize(700, 500);
         this.setTitle("Administrar categorias");
-
-        this.cargaCategoria();
+        controlCategoria = new C_Categoria();
+        this.cargarCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -176,8 +171,7 @@ public class iAdmCategoria extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 190, 210));
 
-        wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/700-500.jpeg"))); // NOI18N
-        wallpaper.setText("jLabel1");
+        wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/backgrounds/700-500.jpeg"))); // NOI18N
         getContentPane().add(wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 470));
 
         pack();
@@ -186,45 +180,85 @@ public class iAdmCategoria extends javax.swing.JInternalFrame {
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         if (!text_nombre.getText().isEmpty()) {
             Categoria categoria = new Categoria();
-            C_Categoria controlCategoria = new C_Categoria();
-
             categoria.setNombre(text_nombre.getText().trim());
             categoria.setDescripcion(text_descripcion.getText().trim());
-
             if (controlCategoria.actualizar(categoria, idCategoria)) {
                 JOptionPane.showMessageDialog(null, "Categoria actualizada");
                 text_nombre.setText("");
                 text_descripcion.setText("");
-                this.cargaCategoria();
+                this.cargarCategorias();
             } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar categoria");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciones una categoria");
+            JOptionPane.showMessageDialog(null, "Seleccione una categoria");
         }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-       if (!text_nombre.getText().isEmpty()) {
-            Categoria categoria = new Categoria();
-            C_Categoria controlCategoria = new C_Categoria();
+         if (!text_nombre.getText().isEmpty()) {
+            String nombreCategoria = text_nombre.getText().trim();
 
-            categoria.setNombre(text_nombre.getText().trim());
-            categoria.setDescripcion(text_descripcion.getText().trim());
+            int confirmacion = JOptionPane.showOptionDialog(null,
+                    "¿Está seguro de eliminar la categoria " + nombreCategoria + "?",
+                    "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    new Object[]{"Sí", "No"},
+                    "No");
 
-            if (!controlCategoria.eliminar(idCategoria)) {
-                JOptionPane.showMessageDialog(null, "Categoria eliminada");
-                text_nombre.setText("");
-                text_descripcion.setText("");
-                this.cargaCategoria();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al eliminar categoriaaaass");
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                if (controlCategoria.eliminar(idCategoria)) {
+                    JOptionPane.showMessageDialog(null, "Categoria eliminada");
+                    text_nombre.setText("");
+                    text_descripcion.setText("");
+                    this.cargarCategorias();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al eliminar la categoria");
+                }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciones una categoria");
+            JOptionPane.showMessageDialog(null, "Seleccione una categoria");
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
+    private void cargarCategorias() {
+        List<Categoria> categorias = controlCategoria.leerTodas();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("NOMBRE");
+        model.addColumn("DESCRIPCION");
 
+        for (Categoria categoria : categorias) {
+            Object[] fila = new Object[3];
+            fila[0] = categoria.getId();
+            fila[1] = categoria.getNombre();
+            fila[2] = categoria.getDescripcion();
+            model.addRow(fila);
+        }
+        t_categoria.setModel(model);
+        t_categoria.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int filaPoint = t_categoria.rowAtPoint(e.getPoint());
+                int columnaPoint = 0;
+                if (filaPoint > -1) {
+                    idCategoria = (int) model.getValueAt(filaPoint, columnaPoint);
+                    mostrarDatosCategoria(idCategoria);
+                }
+            }
+        });
+    }
+
+    private void mostrarDatosCategoria(int idCategoria) {
+        Categoria categoria = controlCategoria.leer(idCategoria);
+        if (categoria != null) {
+            text_nombre.setText(categoria.getNombre());
+            text_descripcion.setText(categoria.getDescripcion());
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al cargar datos de la categoria");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
@@ -241,65 +275,5 @@ public class iAdmCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JTextField text_nombre;
     private javax.swing.JLabel wallpaper;
     // End of variables declaration//GEN-END:variables
-
-//
-    private void cargaCategoria() {
-        Connection cn = Conexion.conectar();
-        DefaultTableModel model = new DefaultTableModel();
-        String sql = "select idCategoria, nombre, descripcion from t_categoria;";
-        Statement st;
-
-        try {
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            iAdmCategoria.t_categoria = new JTable(model);
-            iAdmCategoria.jScrollPane1.setViewportView(iAdmCategoria.t_categoria);
-
-            model.addColumn("ID");
-            model.addColumn("NOMBRE");
-            model.addColumn("DESCRIPCION");
-
-            while (rs.next()) {
-                Object fila[] = new Object[3];
-
-                for (int i = 0; i < 3; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                model.addRow(fila);
-            }
-            cn.close();
-        } catch (SQLException e) {
-            System.out.println("Error al completar datos: " + e);
-        }
-
-        t_categoria.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int fila_point = t_categoria.rowAtPoint(e.getPoint());
-                int columna_point = 0;
-
-                if (fila_point > -1) {
-                    idCategoria = (int) model.getValueAt(fila_point, columna_point);
-                    datosCat(idCategoria);
-                }
-            }
-        });
-    }
-
-    private void datosCat(int idCategoria) {
-        try {
-            Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("select nombre, descripcion from t_categoria where idCategoria = '" + idCategoria + "'");
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                text_nombre.setText(rs.getString("nombre"));
-                text_descripcion.setText(rs.getString("descripcion"));
-            }
-            cn.close();
-        } catch (SQLException e) {
-            System.out.println("Error al seleccionar categoria:" + e);
-        }
-    }
 
 }

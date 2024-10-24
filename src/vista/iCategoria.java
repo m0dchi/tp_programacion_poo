@@ -10,7 +10,6 @@ public class iCategoria extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(500, 400);
         this.setTitle("Nueva categoria");
-
     }
 
     @SuppressWarnings("unchecked")
@@ -23,24 +22,25 @@ public class iCategoria extends javax.swing.JInternalFrame {
         text_nombre = new javax.swing.JTextField();
         text_descripcion = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb_titulo.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        lb_titulo.setForeground(new java.awt.Color(0, 0, 0));
+        lb_titulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        lb_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lb_titulo.setText("NUEVA CATEGORIA");
-        getContentPane().add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
+        getContentPane().add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
 
-        lb_nombre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lb_nombre.setForeground(new java.awt.Color(0, 0, 0));
+        lb_nombre.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        lb_nombre.setForeground(new java.awt.Color(255, 255, 255));
         lb_nombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_nombre.setText("Nombre de categoria:");
         getContentPane().add(lb_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 210, -1));
 
-        lb_descripcion.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lb_descripcion.setForeground(new java.awt.Color(0, 0, 0));
+        lb_descripcion.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        lb_descripcion.setForeground(new java.awt.Color(255, 255, 255));
         lb_descripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_descripcion.setText("Descripción:");
         getContentPane().add(lb_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 110, -1));
@@ -77,6 +77,9 @@ public class iCategoria extends javax.swing.JInternalFrame {
         });
         getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 90, 40));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/backgrounds/500-400.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 490, 400));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -91,16 +94,13 @@ public class iCategoria extends javax.swing.JInternalFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         Categoria categoria = new Categoria();
         C_Categoria controlCategoria = new C_Categoria();
-
-        if (text_nombre.getText().isEmpty() || text_nombre.getText().isEmpty()) {
+        
+        if (text_nombre.getText().isEmpty() || text_descripcion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Falta completar datos");
         } else {
-
             if (!controlCategoria.categoriaExiste(text_nombre.getText().trim())) {
                 categoria.setNombre(text_nombre.getText().trim());
                 categoria.setDescripcion(text_descripcion.getText().trim());
-                categoria.setEstado(1);
-
                 if (controlCategoria.guardar(categoria)) {
                     JOptionPane.showMessageDialog(null, "Categoria guardada");
                 } else {
@@ -117,6 +117,7 @@ public class iCategoria extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_guardar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lb_descripcion;
     private javax.swing.JLabel lb_nombre;
     private javax.swing.JLabel lb_titulo;

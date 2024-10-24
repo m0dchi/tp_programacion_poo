@@ -5,10 +5,14 @@
         <group>
             <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/vista/iCategoria.java</file>
             <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/vista/iProducto.java</file>
+            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/conexion/Conexion.java</file>
             <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/vista/iAdmCategoria.java</file>
-            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/controlador/C_Categoria.java</file>
+            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/assets/backgrounds/fmenubackground.png</file>
+            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/modelo/Usuario.java</file>
+            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/controlador/C_Usuario.java</file>
+            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/vista/fLogin.java</file>
             <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/vista/fMenu.java</file>
-            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/modelo/Categoria.java</file>
+            <file>file:/C:/Users/rochi/OneDrive/Documentos/GitHub/tp_programacion_poo/src/vista/iAdmProducto.java</file>
         </group>
     </open-files>
 </project-private>
