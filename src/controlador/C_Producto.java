@@ -13,14 +13,19 @@ public class C_Producto {
         productoDAO = new ProductoDAOImpl(connection);
     }
 
-    public boolean guardar(Producto producto) {
-        try {
-            productoDAO.crear(producto);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al guardar producto: " + e);
-            return false;
+    public void guardar(String nombre, double precio, int idCategoria) throws Exception {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new Exception("El nombre no puede estar vacío");
         }
+        if (precio <= 0) {
+            throw new Exception("El precio debe ser mayor que cero");
+        }
+        if (idCategoria <= 0) {
+            throw new Exception("El ID de la categoría debe ser válido");
+        }
+
+        Producto producto = new Producto(0, nombre, idCategoria, precio); // Crear instancia del objeto Producto con ID 0 o automático
+        productoDAO.crear(producto);
     }
 
     public boolean productoExiste(String nombreProducto) {
@@ -28,25 +33,30 @@ public class C_Producto {
         return productos.stream().anyMatch(producto -> producto.getNombre().equals(nombreProducto));
     }
 
-    public boolean actualizar(Producto producto, int idProducto) {
-        try {
-            producto.setId(idProducto);
-            productoDAO.actualizar(producto);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al actualizar producto: " + e);
-            return false;
+    public void actualizar(String nombre, double precio, int idCategoria, int idProducto) throws Exception {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new Exception("El nombre no puede estar vacío");
         }
+        if (precio <= 0) {
+            throw new Exception("El precio debe ser mayor que cero");
+        }
+        if (idCategoria <= 0) {
+            throw new Exception("El ID de la categoría debe ser válido");
+        }
+        if (productoDAO.leer(idProducto) == null) {
+            throw new Exception("El producto no existe");
+        }
+
+        Producto producto = new Producto(idProducto, nombre, idCategoria, precio);
+        productoDAO.actualizar(producto);
     }
 
-    public boolean eliminar(int idProducto) {
-        try {
-            productoDAO.eliminar(idProducto);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al eliminar producto: " + e);
-            return false;
+    public void eliminar(int idProducto) throws Exception {
+        if (productoDAO.leer(idProducto) == null) {
+            throw new Exception("El producto no existe");
         }
+
+        productoDAO.eliminar(idProducto);
     }
 
     public List<Producto> leerTodas() {

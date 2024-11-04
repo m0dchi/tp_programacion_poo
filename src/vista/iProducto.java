@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import modelo.Producto;
 
 public class iProducto extends javax.swing.JInternalFrame {
 
     private C_Categoria controlCategoria;
+    private C_Producto controlProducto;
     private Map<String, Integer> categoriaMap;
 
     public iProducto() {
@@ -19,13 +19,14 @@ public class iProducto extends javax.swing.JInternalFrame {
         this.setSize(500, 400);
         this.setTitle("Nuevo Producto");
         controlCategoria = new C_Categoria();
+        controlProducto = new C_Producto();
         categoriaMap = new HashMap<>();
         cargarCategorias();
     }
 
     private void cargarCategorias() {
-        cbox_categoria.removeAllItems(); // Elimina todos los elementos existentes
-        cbox_categoria.addItem("Seleccione una categoría"); // Añadir mensaje predeterminado
+        cbox_categoria.removeAllItems();
+        cbox_categoria.addItem("Seleccione una categoría");
         List<Categoria> categorias = controlCategoria.leerTodas();
         for (Categoria categoria : categorias) {
             cbox_categoria.addItem(categoria.getNombre());
@@ -51,24 +52,24 @@ public class iProducto extends javax.swing.JInternalFrame {
         setIconifiable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lb_titulo.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        lb_titulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
         lb_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lb_titulo.setText("NUEVO PRODUCTO");
-        getContentPane().add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, -1));
+        getContentPane().add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
 
-        lb_nombre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lb_nombre.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lb_nombre.setForeground(new java.awt.Color(255, 255, 255));
         lb_nombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_nombre.setText("Nombre:");
         getContentPane().add(lb_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 110, -1));
 
-        lb_precio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lb_precio.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lb_precio.setForeground(new java.awt.Color(255, 255, 255));
         lb_precio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_precio.setText("Precio:");
         getContentPane().add(lb_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 110, -1));
 
-        lb_categoria.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lb_categoria.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lb_categoria.setForeground(new java.awt.Color(255, 255, 255));
         lb_categoria.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_categoria.setText("Categoria:");
@@ -127,47 +128,47 @@ public class iProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_text_nombreActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        Producto producto = new Producto();
-        C_Producto controlProducto = new C_Producto();
-
-        if (cbox_categoria.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Seleccione una categoría válida.");
-            return;
-        }
-
-        if (text_nombre.getText().isEmpty() || text_precio.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Falta completar datos");
-        } else {
-            if (!controlProducto.productoExiste(text_nombre.getText().trim())) {
-                try {
-                    double precio = Double.parseDouble(text_precio.getText().trim());
-                    producto.setPrecio(precio);
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Precio no válido, debe ser en formato \"123\" o \"123.45\"");
-                    return; 
-                }
-
-                producto.setNombre(text_nombre.getText().trim());
-                double precio = Double.parseDouble(text_precio.getText().trim());
-                producto.setPrecio(precio);
-                String categoriaSeleccionada = cbox_categoria.getSelectedItem().toString();
-                int categoriaId = categoriaMap.get(categoriaSeleccionada);
-                producto.setIdCategoria(categoriaId);
-
-                if (controlProducto.guardar(producto)) {
-                    JOptionPane.showMessageDialog(null, "Producto guardado");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar producto");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "El producto ya existe");
-            }
-            text_nombre.setText("");
-            text_precio.setText("");
-            cbox_categoria.setSelectedIndex(0);
-        }
+        guardarProducto();
     }//GEN-LAST:event_btn_guardarActionPerformed
+    
+    private void guardarProducto() {
+        try {
+            if (cbox_categoria.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione una categoría válida.");
+                return;
+            }
+            String nombre = text_nombre.getText().trim();
+            String precioStr = text_precio.getText().trim();
+            if (nombre.isEmpty() || precioStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Falta completar datos");
+            } else {
+                if (!controlProducto.productoExiste(nombre)) {
+                    double precio;
+                    try {
+                        precio = Double.parseDouble(precioStr);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Precio no válido, debe ser en formato \"123\" o \"123.45\"");
+                        return;
+                    }
+                    String categoriaSeleccionada = cbox_categoria.getSelectedItem().toString();
+                    int categoriaId = categoriaMap.get(categoriaSeleccionada);
+                    controlProducto.guardar(nombre, precio, categoriaId);
+                    JOptionPane.showMessageDialog(null, "Producto guardado");
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El producto ya existe");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 
+    private void limpiarCampos() {
+        text_nombre.setText("");
+        text_precio.setText("");
+        cbox_categoria.setSelectedIndex(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_guardar;

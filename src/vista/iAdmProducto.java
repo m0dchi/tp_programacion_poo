@@ -201,67 +201,11 @@ public class iAdmProducto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        if (!text_nombre.getText().isEmpty()) {
-            Producto producto = new Producto();
-            producto.setNombre(text_nombre.getText().trim());
-            try {
-                double precio = Double.parseDouble(text_precio.getText().trim());
-                producto.setPrecio(precio);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Precio no válido, debe ser en formato \"123\" o \"123.45\"");
-                return;
-            }
-
-            if (cbox_categoria.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "Seleccione una categoría válida.");
-                return;
-            }
-
-            String categoriaSeleccionada = cbox_categoria.getSelectedItem().toString();
-            int categoriaId = categoriaMap.get(categoriaSeleccionada);
-            producto.setIdCategoria(categoriaId);
-
-            if (controlProducto.actualizar(producto, idProducto)) {
-                JOptionPane.showMessageDialog(null, "Producto actualizado");
-                text_nombre.setText("");
-                text_precio.setText("");
-                cbox_categoria.setSelectedIndex(0);
-                this.cargarProductos();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar producto");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un producto");
-        }
+        actualizarProducto();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        if (!text_nombre.getText().isEmpty()) {
-            String nombreProducto = text_nombre.getText().trim();
-
-            int confirmacion = JOptionPane.showOptionDialog(null,
-                    "¿Está seguro de eliminar el producto " + nombreProducto + "?",
-                    "Confirmar Eliminación",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    new Object[]{"Sí", "No"},
-                    "No");
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                if (controlProducto.eliminar(idProducto)) {
-                    JOptionPane.showMessageDialog(null, "Producto eliminado");
-                    text_nombre.setText("");
-                    text_precio.setText("");
-                    cbox_categoria.setSelectedIndex(0); 
-                    this.cargarProductos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al eliminar producto");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un producto");
-        }
+        eliminarProducto();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void cargarProductos() {
@@ -271,7 +215,6 @@ public class iAdmProducto extends javax.swing.JInternalFrame {
         model.addColumn("NOMBRE");
         model.addColumn("PRECIO");
         model.addColumn("CATEGORIA");
-
         for (Producto producto : productos) {
             Object[] fila = new Object[4];
             fila[0] = producto.getId();
@@ -287,7 +230,6 @@ public class iAdmProducto extends javax.swing.JInternalFrame {
             fila[3] = nombreCategoria;
             model.addRow(fila);
         }
-
         t_categoria.setModel(model);
         t_categoria.addMouseListener(new MouseAdapter() {
             @Override
@@ -321,6 +263,61 @@ public class iAdmProducto extends javax.swing.JInternalFrame {
             cbox_categoria.addItem(categoria.getNombre());
             categoriaMap.put(categoria.getNombre(), categoria.getId());
         }
+    }
+
+    private void actualizarProducto() {
+        try {
+            if (!text_nombre.getText().isEmpty()) {
+                String nombre = text_nombre.getText().trim();
+                String precioStr = text_precio.getText().trim();
+                double precio;
+                try {
+                    precio = Double.parseDouble(precioStr);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Precio no válido, debe ser en formato \"123\" o \"123.45\"");
+                    return;
+                }
+                if (cbox_categoria.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una categoría válida.");
+                    return;
+                }
+                String categoriaSeleccionada = cbox_categoria.getSelectedItem().toString();
+                int categoriaId = categoriaMap.get(categoriaSeleccionada);
+                controlProducto.actualizar(nombre, precio, categoriaId, idProducto);
+                JOptionPane.showMessageDialog(null, "Producto actualizado");
+                limpiarCampos();
+                this.cargarProductos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un producto");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void eliminarProducto() {
+        try {
+            if (!text_nombre.getText().isEmpty()) {
+                String nombreProducto = text_nombre.getText().trim();
+                int confirmacion = JOptionPane.showOptionDialog(null, "¿Está seguro de eliminar el producto " + nombreProducto + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "No");
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    controlProducto.eliminar(idProducto);
+                    JOptionPane.showMessageDialog(null, "Producto eliminado");
+                    limpiarCampos();
+                    this.cargarProductos();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un producto");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void limpiarCampos() {
+        text_nombre.setText("");
+        text_precio.setText("");
+        cbox_categoria.setSelectedIndex(0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;

@@ -64,10 +64,6 @@ public class fMenu extends javax.swing.JFrame {
         mi_nuevaVenta = new javax.swing.JMenuItem();
         mi_ventas = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        mi_reporteClientes = new javax.swing.JMenuItem();
-        mi_reporteCategorias = new javax.swing.JMenuItem();
-        mi_reporteProductos = new javax.swing.JMenuItem();
-        mi_reporteVentas = new javax.swing.JMenuItem();
         mi_historial = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
@@ -177,26 +173,9 @@ public class fMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/reporte.png"))); // NOI18N
-        jMenu6.setText("Reportes");
+        jMenu6.setText("Proveedores");
         jMenu6.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jMenu6.setPreferredSize(new java.awt.Dimension(150, 50));
-
-        mi_reporteClientes.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        mi_reporteClientes.setText("Reporte de clientes");
-        jMenu6.add(mi_reporteClientes);
-
-        mi_reporteCategorias.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        mi_reporteCategorias.setText("Reporte de categorias");
-        jMenu6.add(mi_reporteCategorias);
-
-        mi_reporteProductos.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        mi_reporteProductos.setText("Reporte de productos");
-        jMenu6.add(mi_reporteProductos);
-
-        mi_reporteVentas.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        mi_reporteVentas.setText("Reporte de ventas");
-        jMenu6.add(mi_reporteVentas);
-
         jMenuBar1.add(jMenu6);
 
         mi_historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/historial.png"))); // NOI18N
@@ -303,10 +282,6 @@ public class fMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_nuevoProducto;
     private javax.swing.JMenuItem mi_nuevoUsuario;
     private javax.swing.JMenuItem mi_productos;
-    private javax.swing.JMenuItem mi_reporteCategorias;
-    private javax.swing.JMenuItem mi_reporteClientes;
-    private javax.swing.JMenuItem mi_reporteProductos;
-    private javax.swing.JMenuItem mi_reporteVentas;
     private javax.swing.JMenuItem mi_usuarios;
     private javax.swing.JMenuItem mi_ventas;
     // End of variables declaration//GEN-END:variables

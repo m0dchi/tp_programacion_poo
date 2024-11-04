@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 
 public class Conexion {
-    private static final String URL = "jdbc:mysql://localhost/db_gestion_ventas_cibercafe?useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String USUARIO = "";
-    private static final String CONTRASEÑA = "";
+    private static final String URL = "jdbc:mysql://localhost/gestion_ventas_cibercafe?useSSL=false&allowPublicKeyRetrieval=true";
+    private static final String USUARIO = "root";
+    private static final String CONTRASEÑA = "q00215803";
 
     public static Connection conectar() {
         try {

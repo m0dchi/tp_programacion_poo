@@ -178,49 +178,11 @@ public class iAdmCategoria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        if (!text_nombre.getText().isEmpty()) {
-            Categoria categoria = new Categoria();
-            categoria.setNombre(text_nombre.getText().trim());
-            categoria.setDescripcion(text_descripcion.getText().trim());
-            if (controlCategoria.actualizar(categoria, idCategoria)) {
-                JOptionPane.showMessageDialog(null, "Categoria actualizada");
-                text_nombre.setText("");
-                text_descripcion.setText("");
-                this.cargarCategorias();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar categoria");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una categoria");
-        }
+        actualizarCategoria();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-         if (!text_nombre.getText().isEmpty()) {
-            String nombreCategoria = text_nombre.getText().trim();
-
-            int confirmacion = JOptionPane.showOptionDialog(null,
-                    "¿Está seguro de eliminar la categoria " + nombreCategoria + "?",
-                    "Confirmar Eliminación",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    new Object[]{"Sí", "No"},
-                    "No");
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                if (controlCategoria.eliminar(idCategoria)) {
-                    JOptionPane.showMessageDialog(null, "Categoria eliminada");
-                    text_nombre.setText("");
-                    text_descripcion.setText("");
-                    this.cargarCategorias();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al eliminar la categoria");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una categoria");
-        }
+        eliminarCategoria();
     }//GEN-LAST:event_btn_eliminarActionPerformed
     private void cargarCategorias() {
         List<Categoria> categorias = controlCategoria.leerTodas();
@@ -228,7 +190,6 @@ public class iAdmCategoria extends javax.swing.JInternalFrame {
         model.addColumn("ID");
         model.addColumn("NOMBRE");
         model.addColumn("DESCRIPCION");
-
         for (Categoria categoria : categorias) {
             Object[] fila = new Object[3];
             fila[0] = categoria.getId();
@@ -258,6 +219,47 @@ public class iAdmCategoria extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Error al cargar datos de la categoria");
         }
+    }
+
+    private void actualizarCategoria() {
+        try {
+            String nombre = text_nombre.getText().trim();
+            String descripcion = text_descripcion.getText().trim();
+            if (!nombre.isEmpty()) {
+                controlCategoria.actualizar(nombre, descripcion, idCategoria);
+                JOptionPane.showMessageDialog(null, "Categoria actualizada");
+                limpiarCampos();
+                this.cargarCategorias();
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una categoria");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void eliminarCategoria() {
+        try {
+            if (!text_nombre.getText().isEmpty()) {
+                String nombreCategoria = text_nombre.getText().trim();
+                int confirmacion = JOptionPane.showOptionDialog(null, "¿Está seguro de eliminar la categoria " + nombreCategoria + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "No");
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    controlCategoria.eliminar(idCategoria);
+                    JOptionPane.showMessageDialog(null, "Categoria eliminada");
+                    limpiarCampos();
+                    this.cargarCategorias();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una categoria");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    private void limpiarCampos() {
+        text_nombre.setText("");
+        text_descripcion.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

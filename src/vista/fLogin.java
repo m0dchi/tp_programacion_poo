@@ -5,11 +5,12 @@ import java.awt.*;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
-import modelo.Usuario;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class fLogin extends javax.swing.JFrame {
+
+    private C_Usuario controlUsuario;
 
     public fLogin() {
         try {
@@ -17,14 +18,11 @@ public class fLogin extends javax.swing.JFrame {
             Font robotoRegular = Font.createFont(Font.TRUETYPE_FONT, robotoRegularStream).deriveFont(12f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(robotoRegular);
-
             InputStream robotoBlackStream = getClass().getResourceAsStream("/assets/fonts/Roboto-Black.ttf");
             Font robotoBlack = Font.createFont(Font.TRUETYPE_FONT, robotoBlackStream).deriveFont(12f);
             ge.registerFont(robotoBlack);
-
             UIManager.put("Label.font", robotoRegular);
             UIManager.put("Button.font", robotoBlack);
-
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
             try {
@@ -37,14 +35,13 @@ public class fLogin extends javax.swing.JFrame {
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 ex.printStackTrace();
             }
-
         }
-        
         initComponents();
         this.setResizable(false);
-        this.setTitle("Inicio de sesion - SISTEMA CIBERCAFE");
+        this.setTitle("Inicio de sesión - SISTEMA CIBERCAFE");
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
+        this.controlUsuario = new C_Usuario();
     }
 
     @Override
@@ -289,24 +286,19 @@ public class fLogin extends javax.swing.JFrame {
     private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 
-//
     private void Login() {
         if (!txt_usuario.getText().isEmpty() && !txt_password.getText().isEmpty()) {
-            C_Usuario controlUsuario = new C_Usuario();
-            Usuario usuario = new Usuario();
-            usuario.setUsuario(txt_usuario.getText().trim());
-            usuario.setPassword(txt_password.getText().trim());
-            if (controlUsuario.loginUser(usuario)) {
+            try {
+                controlUsuario.loginUser(txt_usuario.getText().trim(), txt_password.getText().trim());
                 JOptionPane.showMessageDialog(null, "Inicio de sesión correcto");
                 fMenu menu = new fMenu();
                 menu.setVisible(true);
                 this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario o clave incorrectos");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese sus credenciales");
         }
     }
-
 }

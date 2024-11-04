@@ -13,14 +13,16 @@ public class C_Categoria {
         categoriaDAO = new CategoriaDAOImpl(connection);
     }
 
-    public boolean guardar(Categoria categoria) {
-        try {
-            categoriaDAO.crear(categoria);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al guardar categoria: " + e);
-            return false;
+    public void guardar(String nombre, String descripcion) throws Exception {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new Exception("El nombre no puede estar vacío");
         }
+        if (descripcion == null || descripcion.isEmpty()) {
+            throw new Exception("La descripción no puede estar vacía");
+        }
+
+        Categoria categoria = new Categoria(0, nombre, descripcion); // Crear instancia del objeto Categoria con ID 0 o automático
+        categoriaDAO.crear(categoria);
     }
 
     public boolean categoriaExiste(String nombreCategoria) {
@@ -28,25 +30,27 @@ public class C_Categoria {
         return categorias.stream().anyMatch(categoria -> categoria.getNombre().equals(nombreCategoria));
     }
 
-    public boolean actualizar(Categoria categoria, int idCategoria) {
-        try {
-            categoria.setId(idCategoria);
-            categoriaDAO.actualizar(categoria);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al actualizar categoria: " + e);
-            return false;
+    public void actualizar(String nombre, String descripcion, int idCategoria) throws Exception {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new Exception("El nombre no puede estar vacío");
         }
+        if (descripcion == null || descripcion.isEmpty()) {
+            throw new Exception("La descripción no puede estar vacía");
+        }
+        if (categoriaDAO.leer(idCategoria) == null) {
+            throw new Exception("La categoría no existe");
+        }
+
+        Categoria categoria = new Categoria(idCategoria, nombre, descripcion);
+        categoriaDAO.actualizar(categoria);
     }
 
-    public boolean eliminar(int idCategoria) {
-        try {
-            categoriaDAO.eliminar(idCategoria);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al eliminar categoria: " + e);
-            return false;
+    public void eliminar(int idCategoria) throws Exception {
+        if (categoriaDAO.leer(idCategoria) == null) {
+            throw new Exception("La categoría no existe");
         }
+
+        categoriaDAO.eliminar(idCategoria);
     }
 
     public List<Categoria> leerTodas() {

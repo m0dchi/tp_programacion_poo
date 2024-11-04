@@ -2,14 +2,16 @@ package vista;
 
 import controlador.C_Categoria;
 import javax.swing.JOptionPane;
-import modelo.Categoria;
 
 public class iCategoria extends javax.swing.JInternalFrame {
+
+    private C_Categoria controlCategoria;
 
     public iCategoria() {
         initComponents();
         this.setSize(500, 400);
         this.setTitle("Nueva categoria");
+        controlCategoria = new C_Categoria();
     }
 
     @SuppressWarnings("unchecked")
@@ -92,28 +94,32 @@ public class iCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_text_nombreActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        Categoria categoria = new Categoria();
-        C_Categoria controlCategoria = new C_Categoria();
-        
-        if (text_nombre.getText().isEmpty() || text_descripcion.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Falta completar datos");
-        } else {
-            if (!controlCategoria.categoriaExiste(text_nombre.getText().trim())) {
-                categoria.setNombre(text_nombre.getText().trim());
-                categoria.setDescripcion(text_descripcion.getText().trim());
-                if (controlCategoria.guardar(categoria)) {
-                    JOptionPane.showMessageDialog(null, "Categoria guardada");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar categoria");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "La categoria ya existe");
-            }
-            text_descripcion.setText("");
-            text_nombre.setText("");
-        }
+        guardarCategoria();
     }//GEN-LAST:event_btn_guardarActionPerformed
+    private void guardarCategoria() {
+        try {
+            String nombre = text_nombre.getText().trim();
+            String descripcion = text_descripcion.getText().trim();
+            if (nombre.isEmpty() || descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Falta completar datos");
+            } else {
+                if (!controlCategoria.categoriaExiste(nombre)) {
+                    controlCategoria.guardar(nombre, descripcion);
+                    JOptionPane.showMessageDialog(null, "Categoria guardada");
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "La categoria ya existe");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 
+    private void limpiarCampos() {
+        text_nombre.setText("");
+        text_descripcion.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_guardar;

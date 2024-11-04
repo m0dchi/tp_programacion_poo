@@ -189,7 +189,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/assets/icons/reporte.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reportes"/>
+            <Property name="text" type="java.lang.String" value="Proveedores"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto" size="18" style="0"/>
             </Property>
@@ -197,40 +197,6 @@
               <Dimension value="[150, 50]"/>
             </Property>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_reporteClientes">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="18" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Reporte de clientes"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_reporteCategorias">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="18" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Reporte de categorias"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_reporteProductos">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="18" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Reporte de productos"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_reporteVentas">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Roboto" size="18" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Reporte de ventas"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mi_historial">
           <Properties>
