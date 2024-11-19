@@ -21,7 +21,7 @@ public class C_Categoria {
             throw new Exception("La descripción no puede estar vacía");
         }
 
-        Categoria categoria = new Categoria(0, nombre, descripcion); // Crear instancia del objeto Categoria con ID 0 o automático
+        Categoria categoria = new Categoria(0, nombre, descripcion);
         categoriaDAO.crear(categoria);
     }
 

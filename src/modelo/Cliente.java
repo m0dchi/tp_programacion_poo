@@ -2,22 +2,22 @@ package modelo;
 
 public class Cliente extends Persona {
 
-    private int telefono;
+    private long telefono;
 
     public Cliente() {
         this.telefono = 0;
     }
 
-    public Cliente(int id, String nombre, String apellido, int dni, int estado, int telefono) {
-        super(id, nombre, apellido, dni, estado);
+    public Cliente(int id, String nombre, String apellido, int dni, long telefono) {
+        super(id, nombre, apellido, dni);
         this.telefono = telefono;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 

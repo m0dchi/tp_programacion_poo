@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 
 public class Conexion {
-    private static final String URL = "jdbc:mysql://localhost/gestion_ventas_cibercafe?useSSL=false&allowPublicKeyRetrieval=true";
+    private static final String URL = "jdbc:mysql://localhost/db_gestion_ventas_cibercafe?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String USUARIO = "root";
     private static final String CONTRASEÑA = "q00215803";
 
@@ -15,7 +15,7 @@ public class Conexion {
             return cn;
         } catch (SQLException e) {
             System.out.println("Error en la conexión local: " + e);
+            return null;
         }
-        return null;
     }
 }

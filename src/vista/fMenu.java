@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class fMenu extends javax.swing.JFrame {
+
     public static JDesktopPane jDesktopPane_menu;
 
     public fMenu() {
@@ -42,6 +43,12 @@ public class fMenu extends javax.swing.JFrame {
         this.add(jDesktopPane_menu, BorderLayout.CENTER);
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/assets/iconprograma.png"));
+        return retValue;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,15 +64,12 @@ public class fMenu extends javax.swing.JFrame {
         mi_nuevoCliente = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         mi_clientes = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        mi_nuevoUsuario = new javax.swing.JMenuItem();
-        mi_usuarios = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mi_nuevaVenta = new javax.swing.JMenuItem();
         mi_ventas = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
         mi_historial = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         mi_cerrarSesion = new javax.swing.JMenuItem();
 
@@ -134,28 +138,23 @@ public class fMenu extends javax.swing.JFrame {
 
         jMenuItem3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jMenuItem3.setText("Nuevo cliente");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         mi_nuevoCliente.add(jMenuItem3);
 
         mi_clientes.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         mi_clientes.setText("Administrar clientes");
+        mi_clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_clientesActionPerformed(evt);
+            }
+        });
         mi_nuevoCliente.add(mi_clientes);
 
         jMenuBar1.add(mi_nuevoCliente);
-
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/usuario.png"))); // NOI18N
-        jMenu1.setText("Usuarios");
-        jMenu1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jMenu1.setPreferredSize(new java.awt.Dimension(150, 50));
-
-        mi_nuevoUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        mi_nuevoUsuario.setText("Nuevo usuario");
-        jMenu1.add(mi_nuevoUsuario);
-
-        mi_usuarios.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        mi_usuarios.setText("Administrar usuarios");
-        jMenu1.add(mi_usuarios);
-
-        jMenuBar1.add(jMenu1);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/facturacion.png"))); // NOI18N
         jMenu5.setText("Facturación");
@@ -164,19 +163,23 @@ public class fMenu extends javax.swing.JFrame {
 
         mi_nuevaVenta.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         mi_nuevaVenta.setText("Nueva venta");
+        mi_nuevaVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_nuevaVentaActionPerformed(evt);
+            }
+        });
         jMenu5.add(mi_nuevaVenta);
 
         mi_ventas.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         mi_ventas.setText("Administrar ventas");
+        mi_ventas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_ventasActionPerformed(evt);
+            }
+        });
         jMenu5.add(mi_ventas);
 
         jMenuBar1.add(jMenu5);
-
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/reporte.png"))); // NOI18N
-        jMenu6.setText("Proveedores");
-        jMenu6.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jMenu6.setPreferredSize(new java.awt.Dimension(150, 50));
-        jMenuBar1.add(jMenu6);
 
         mi_historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/historial.png"))); // NOI18N
         mi_historial.setText("Historial");
@@ -188,6 +191,12 @@ public class fMenu extends javax.swing.JFrame {
         mi_historial.add(jMenuItem16);
 
         jMenuBar1.add(mi_historial);
+
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/reporte.png"))); // NOI18N
+        jMenu6.setText("Proveedores");
+        jMenu6.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jMenu6.setPreferredSize(new java.awt.Dimension(150, 50));
+        jMenuBar1.add(jMenu6);
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/cerrar sesion.png"))); // NOI18N
         jMenu8.setText("Sesión");
@@ -229,6 +238,30 @@ public class fMenu extends javax.swing.JFrame {
         iAdmProducto.setVisible(true);
     }//GEN-LAST:event_mi_productosActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        iCliente iCliente = new iCliente();
+        jDesktopPane_menu.add(iCliente);
+        iCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void mi_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_clientesActionPerformed
+        iAdmCliente iAdmCliente = new iAdmCliente();
+        jDesktopPane_menu.add(iAdmCliente);
+        iAdmCliente.setVisible(true);
+    }//GEN-LAST:event_mi_clientesActionPerformed
+
+    private void mi_nuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_nuevaVentaActionPerformed
+        iVenta iVenta = new iVenta();
+        jDesktopPane_menu.add(iVenta);
+        iVenta.setVisible(true);
+    }//GEN-LAST:event_mi_nuevaVentaActionPerformed
+
+    private void mi_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_ventasActionPerformed
+        iAdmVentas iAdmVentas = new iAdmVentas();
+        jDesktopPane_menu.add(iAdmVentas);
+        iAdmVentas.setVisible(true);
+    }//GEN-LAST:event_mi_ventasActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -263,7 +296,6 @@ public class fMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -280,9 +312,7 @@ public class fMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_nuevaVenta;
     private javax.swing.JMenu mi_nuevoCliente;
     private javax.swing.JMenuItem mi_nuevoProducto;
-    private javax.swing.JMenuItem mi_nuevoUsuario;
     private javax.swing.JMenuItem mi_productos;
-    private javax.swing.JMenuItem mi_usuarios;
     private javax.swing.JMenuItem mi_ventas;
     // End of variables declaration//GEN-END:variables
 }

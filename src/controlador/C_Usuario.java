@@ -2,8 +2,8 @@ package controlador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import conexion.Conexion;
 
 public class C_Usuario {
@@ -16,10 +16,14 @@ public class C_Usuario {
             throw new Exception("La contraseña no puede estar vacía");
         }
 
-        Connection cn = Conexion.conectar();
-        String sql = "SELECT usuario, password FROM t_usuario WHERE usuario = ? AND password = ?";
-
+        Connection cn = null;
         try {
+            cn = Conexion.conectar();
+            if (cn == null) {
+                throw new Exception("Error al conectar con la base de datos");
+            }
+
+            String sql = "SELECT usuario, password FROM t_usuario WHERE usuario = ? AND password = ?";
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setString(1, usuario);
             pst.setString(2, password);
@@ -32,10 +36,12 @@ public class C_Usuario {
         } catch (SQLException e) {
             throw new Exception("Error al iniciar sesión: " + e.getMessage());
         } finally {
-            try {
-                cn.close();
-            } catch (SQLException e) {
-                throw new Exception("Error al cerrar la conexión: " + e.getMessage());
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    throw new Exception("Error al cerrar la conexión: " + e.getMessage());
+                }
             }
         }
     }

@@ -75,9 +75,11 @@ public class ProductoDAOImpl implements DAOinterfaz<Producto> {
 
     public List<Producto> leerTodas() {
         List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT idProducto, nombre, idCategoria, precio FROM t_producto";
         try {
+            System.out.println("Ejecutando consulta: " + sql);
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM t_producto");
+            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 Producto producto = new Producto(
                         rs.getInt("idProducto"),
@@ -85,11 +87,35 @@ public class ProductoDAOImpl implements DAOinterfaz<Producto> {
                         rs.getInt("idCategoria"),
                         rs.getDouble("precio")
                 );
+                System.out.println("Producto encontrado: " + producto.getNombre());
                 productos.add(producto);
             }
         } catch (SQLException e) {
+            System.out.println("Error en leerTodas: " + e.getMessage());
             e.printStackTrace();
         }
         return productos;
     }
+
+    public Producto leerPorNombre(String nombre) {
+        Producto producto = null;
+        String sql = "SELECT idProducto, nombre, idCategoria, precio FROM t_producto WHERE nombre = ?";
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, nombre);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                producto = new Producto(
+                        rs.getInt("idProducto"),
+                        rs.getString("nombre"),
+                        rs.getInt("idCategoria"),
+                        rs.getDouble("precio")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return producto;
+    }
+
 }

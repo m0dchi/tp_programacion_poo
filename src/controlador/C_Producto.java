@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class C_Producto {
+
     private ProductoDAOImpl productoDAO;
 
     public C_Producto() {
@@ -24,7 +25,7 @@ public class C_Producto {
             throw new Exception("El ID de la categoría debe ser válido");
         }
 
-        Producto producto = new Producto(0, nombre, idCategoria, precio); // Crear instancia del objeto Producto con ID 0 o automático
+        Producto producto = new Producto(0, nombre, idCategoria, precio);
         productoDAO.crear(producto);
     }
 
@@ -65,5 +66,17 @@ public class C_Producto {
 
     public Producto leer(int idProducto) {
         return productoDAO.leer(idProducto);
+    }
+
+    public List<Producto> obtenerTodosLosProductos() {
+        return productoDAO.leerTodas();
+    }
+
+    public Producto obtenerProductoPorNombre(String nombre) throws Exception {
+        Producto producto = productoDAO.leerPorNombre(nombre);
+        if (producto == null) {
+            throw new Exception("¡Error al obtener datos del producto!");
+        }
+        return producto;
     }
 }

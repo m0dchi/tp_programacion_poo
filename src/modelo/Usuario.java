@@ -9,8 +9,8 @@ public class Usuario extends Persona {
         this.password = "";
     }
     
-    public Usuario(int id,String nombre, String apellido, int dni, String usuario, String password, int estado) {
-        super(id,nombre,apellido,dni,estado);
+    public Usuario(int id,String nombre, String apellido, int dni, String usuario, String password) {
+        super(id,nombre,apellido,dni);
         this.usuario = usuario;
         this.password = password;
     }
