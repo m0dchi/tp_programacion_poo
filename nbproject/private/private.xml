@@ -6,6 +6,7 @@
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/vista/fMenu.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/controlador/C_CabeceraVenta.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/modelo/ProductoDAOImpl.java</file>
+            <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/helpers/ButtonRenderer.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/modelo/DetalleVentaDAOImpl.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/vista/iAdmVentas.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/vista/iVenta.java</file>
@@ -16,6 +17,7 @@
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/controlador/C_Usuario.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/controlador/C_DetalleVenta.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/modelo/DetalleVenta.java</file>
+            <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/helpers/ButtonEditor.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/controlador/C_Cliente.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/modelo/Producto.java</file>
             <file>file:/C:/Users/rochi/Documents/GitHub/tp_programacion_poo/src/modelo/ClienteDAOImpl.java</file>

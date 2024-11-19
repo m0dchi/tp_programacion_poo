@@ -3,7 +3,6 @@ package modelo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import conexion.Conexion;
 
 public class DetalleVentaDAOImpl implements DAOinterfaz<DetalleVenta> {
 
@@ -15,7 +14,7 @@ public class DetalleVentaDAOImpl implements DAOinterfaz<DetalleVenta> {
 
     @Override
     public void crear(DetalleVenta detalleVenta) {
-        String sql = "INSERT INTO t_detalleventa (idCabVenta, idProducto, cantidad, precioUnitario, totalPagar) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO t_detalleventa (idCabVenta, idProducto, cantidad, precioUni, pagarTotal) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, detalleVenta.getIdCabVenta());

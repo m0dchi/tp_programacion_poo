@@ -1,4 +1,3 @@
-
 package vista;
 
 import controlador.C_DetalleVenta;
@@ -14,11 +13,16 @@ import java.util.Date;
 import java.util.List;
 import modelo.Producto;
 import controlador.C_Producto;
-
+import helpers.*;
+import javax.swing.JCheckBox;
 
 public class iVenta extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloDatosProductos;
+
+    public List<DetalleVenta> getListaProductos() {
+        return listaProductos;
+    }
     private ArrayList<DetalleVenta> listaProductos = new ArrayList<>();
     private DetalleVenta producto;
     private int idCliente = 0;
@@ -188,16 +192,21 @@ public class iVenta extends javax.swing.JInternalFrame {
                     if (Integer.parseInt(text_cantidad.getText()) > 0) {
                         cantidad = Integer.parseInt(text_cantidad.getText());
                         DatosDelProducto();
-
                         totalPagar = precioUnitario * cantidad;
                         totalPagar = (double) Math.round(totalPagar * 100) / 100;
                         producto = new DetalleVenta(auxIdDetalle, 1, idProducto, cantidad, precioUnitario, totalPagar);
                         listaProductos.add(producto);
+
+                        Object[] fila = new Object[4];
+                        fila[0] = producto.getNombre();
+                        fila[1] = producto.getCantidad();
+                        fila[2] = producto.getPrecioUni();
+                        fila[3] = producto.getPagarTotal();
+                        modeloDatosProductos.addRow(fila);
                         JOptionPane.showMessageDialog(null, "Producto Agregado");
                         auxIdDetalle++;
                         text_cantidad.setText("");
-                        cargarProductos();
-                        CalcularTotalPagar();
+                        calcularTotalPagar();
                     } else {
                         JOptionPane.showMessageDialog(null, "La cantidad no puede ser cero (0), ni negativa");
                     }
@@ -208,7 +217,6 @@ public class iVenta extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Ingresa la cantidad de productos");
             }
         }
-        listaTablaProductos();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_registrarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarventaActionPerformed
@@ -244,93 +252,95 @@ public class iVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_registrarventaActionPerformed
 
     private void cargarClientes() {
-    C_Cliente cCliente = new C_Cliente();
-    try {
-        List<Cliente> clientes = cCliente.obtenerTodosLosClientes();
-        cb_cliente.removeAllItems();
-        cb_cliente.addItem("Seleccionar cliente");
-        for (Cliente cliente : clientes) {
-            cb_cliente.addItem(cliente.getNombre() + " " + cliente.getApellido());
+        C_Cliente cCliente = new C_Cliente();
+        try {
+            List<Cliente> clientes = cCliente.obtenerTodosLosClientes();
+            cb_cliente.removeAllItems();
+            cb_cliente.addItem("Seleccionar cliente");
+            for (Cliente cliente : clientes) {
+                cb_cliente.addItem(cliente.getNombre() + " " + cliente.getApellido());
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar clientes: " + e);
         }
-    } catch (Exception e) {
-        System.out.println("Error al cargar clientes: " + e);
     }
-}
 
     private void cargarProductos() {
-    C_Producto controlProducto = new C_Producto();
-    try {
-        System.out.println("Llamando a leerTodas...");
-        List<Producto> productos = controlProducto.leerTodas();
-        System.out.println("Productos obtenidos: " + productos.size());
-        cb_producto.removeAllItems();
-        cb_producto.addItem("Seleccionar producto");
-        for (Producto producto : productos) {
-            System.out.println("Añadiendo producto: " + producto.getNombre());
-            cb_producto.addItem(producto.getNombre());
+        C_Producto controlProducto = new C_Producto();
+        try {
+            System.out.println("Llamando a leerTodas...");
+            List<Producto> productos = controlProducto.leerTodas();
+            System.out.println("Productos obtenidos: " + productos.size());
+            cb_producto.removeAllItems();
+            cb_producto.addItem("Seleccionar producto");
+            for (Producto producto : productos) {
+                System.out.println("Añadiendo producto: " + producto.getNombre());
+                cb_producto.addItem(producto.getNombre());
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar productos: " + e.getMessage());
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        System.out.println("Error al cargar productos: " + e.getMessage());
-        e.printStackTrace();
     }
-}
 
     private void DatosDelProducto() {
-    String nombreProducto = cb_producto.getSelectedItem().toString();
-    C_Producto cProducto = new C_Producto();
-    try {
-        Producto producto = cProducto.obtenerProductoPorNombre(nombreProducto);
-        idProducto = producto.getId();
-        precioUnitario = producto.getPrecio();
-        nombre = producto.getNombre();
-    } catch (Exception e) {
-        System.out.println("¡Error al obtener datos del producto!: " + e.getMessage());
+        String nombreProducto = cb_producto.getSelectedItem().toString();
+        C_Producto cProducto = new C_Producto();
+        try {
+            Producto producto = cProducto.obtenerProductoPorNombre(nombreProducto);
+            idProducto = producto.getId();
+            precioUnitario = producto.getPrecio();
+            nombre = producto.getNombre();
+        } catch (Exception e) {
+            System.out.println("¡Error al obtener datos del producto!: " + e.getMessage());
+        }
     }
-}
 
     private void inicializarTablaProducto() {
-    modeloDatosProductos = new DefaultTableModel();
-    modeloDatosProductos.addColumn("Nombre");
-    modeloDatosProductos.addColumn("Cantidad");
-    modeloDatosProductos.addColumn("P. Unitario");
-    modeloDatosProductos.addColumn("Eliminar"); 
+        modeloDatosProductos = new DefaultTableModel();
+        modeloDatosProductos.addColumn("Nombre");
+        modeloDatosProductos.addColumn("Cantidad");
+        modeloDatosProductos.addColumn("P. Unitario");
+        modeloDatosProductos.addColumn("Total");
+        modeloDatosProductos.addColumn("Acción");  // Columna para el botón eliminar
+        t_productos.setModel(modeloDatosProductos);
 
-    this.t_productos.setModel(modeloDatosProductos);
-}
-
-private void listaTablaProductos() {
-    this.modeloDatosProductos.setRowCount(listaProductos.size());
-    for (int i = 0; i < listaProductos.size(); i++) {
-        this.modeloDatosProductos.setValueAt(listaProductos.get(i).getNombre(), i, 0);
-        this.modeloDatosProductos.setValueAt(listaProductos.get(i).getCantidad(), i, 1);
-        this.modeloDatosProductos.setValueAt(listaProductos.get(i).getPrecioUni(), i, 2);
-        this.modeloDatosProductos.setValueAt("Eliminar", i, 3); 
+        t_productos.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        t_productos.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), this));
     }
-    t_productos.setModel(modeloDatosProductos);
-}
 
-
-    private void CalcularTotalPagar() {
-    totalPagar = 0.0;
-    for (DetalleVenta detalle : listaProductos) {
-        totalPagar += detalle.getPagarTotal();
+    public void listaTablaProductos() {
+        this.modeloDatosProductos.setRowCount(listaProductos.size());
+        for (int i = 0; i < listaProductos.size(); i++) {
+            this.modeloDatosProductos.setValueAt(listaProductos.get(i).getNombre(), i, 0);
+            this.modeloDatosProductos.setValueAt(listaProductos.get(i).getCantidad(), i, 1);
+            this.modeloDatosProductos.setValueAt(listaProductos.get(i).getPrecioUni(), i, 2);
+            this.modeloDatosProductos.setValueAt("Eliminar", i, 3);
+        }
+        t_productos.setModel(modeloDatosProductos);
     }
-    text_totalpagar.setText(String.valueOf(totalPagar));
-}
+
+    public void calcularTotalPagar() {
+        double totalPagar = 0.0;
+        for (DetalleVenta detalle : listaProductos) {
+            totalPagar += detalle.getPagarTotal();
+        }
+        text_totalpagar.setText(String.valueOf(totalPagar));
+    }
 
     private void ObtenerIdCliente() {
-    String nombreCliente = cb_cliente.getSelectedItem().toString();
-    C_Cliente cCliente = new C_Cliente();
-    try {
-        idCliente = cCliente.obtenerIdClientePorNombreCompleto(nombreCliente);
-    } catch (Exception e) {
-        System.out.println("¡Error al obtener ID del cliente!: " + e.getMessage());
+        String nombreCliente = cb_cliente.getSelectedItem().toString();
+        C_Cliente cCliente = new C_Cliente();
+        try {
+            idCliente = cCliente.obtenerIdClientePorNombreCompleto(nombreCliente);
+        } catch (Exception e) {
+            System.out.println("¡Error al obtener ID del cliente!: " + e.getMessage());
+        }
     }
-}
 
     private boolean validar(String texto) {
-    return texto.matches("\\d+");
-}
+        return texto.matches("\\d+");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
