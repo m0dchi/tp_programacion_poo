@@ -47,7 +47,7 @@ public class iAdmVentas extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ADMINISTRADOR DE CATEGORIAS");
+        jLabel2.setText("ADMINISTRADOR DE VENTAS");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
